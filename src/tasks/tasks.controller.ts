@@ -12,7 +12,10 @@ export class TasksController {
   }
 
   @Post()
-  createTask(@Body() body: any) {
-    return this.taskService.createTask(body.title, body.description);
+  createTask(
+    @Body('title') title: string,
+    @Body('description') description: string,
+  ) {
+    return this.taskService.createTask(title, description);
   }
 }
