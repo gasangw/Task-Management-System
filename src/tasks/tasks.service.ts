@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -28,8 +29,14 @@ export class TasksService {
   }
 
   deleteTask(id: string) {
-    const task = this.Tasks.filter((task) => task.id !== id);
+    this.Tasks.filter((task) => task.id !== id);
+  }
 
+  updateTask(id: string, updateTaskDto: UpdateTaskDto) {
+    const task = this.getOneTask(id);
+    task.status = updateTaskDto.status;
+    task.title = updateTaskDto.title;
+    task.description = updateTaskDto.description;
     return task;
   }
 }
